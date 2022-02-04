@@ -1,67 +1,71 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  const app = MyApp();
+  runApp(app);
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
+  // callback method
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'PIN Password',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.blueGrey,
       ),
-      home: const MyHomePage(),
+      home: HomePage(),
     );
   }
 }
 
-class MyHomePage extends StatelessWidget {
-  const MyHomePage({Key? key}) : super(key: key);
-
+class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    var showSeven = true;
+
+    var widget;
     return Scaffold(
-      body: Container(
-        //padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 20.0),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 0.0),
         child: Container(
           decoration: BoxDecoration(
-              color: Colors.deepOrange.shade100
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.lightBlueAccent,
+                offset: Offset(5.0, 5.0),
+                spreadRadius: 2.0,
+                blurRadius: 5.0,
+              )
+            ],
           ),
-          //alignment: Alignment.center,
+          alignment: Alignment.center,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(height: 80.0),
               Expanded(
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Icon(
-                      Icons.lock_outlined,         // รูปไอคอน
-                      size: 70.0,           // ขนาดไอคอน
-                      color: Colors.black,   // สีไอคอน
+                      Icons.lock, // รูปไอคอน
+                      size: 50.0, // ขนาดไอคอน
+                      color: Colors.blueGrey, // สีไอคอน
                     ),
-                    SizedBox(width: 8.0),
-                    Row(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Please enter password',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,fontSize: 18.0, color: Colors.black)),
-                      ],
+                    Padding(
+                      padding: const EdgeInsets.all(30.0),
+                      child: Text("กรุณาใส่รหัสผ่าน",
+                          style: TextStyle(
+                              fontSize: 18.0, color: Colors.blueGrey)),
                     ),
                   ],
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -85,67 +89,66 @@ class MyHomePage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: SizedBox(width: 75.0,
-                      height: 75.0,),
-                  ),
-                  buildButton(num: 0),
+                      padding: const EdgeInsets.all(5.0),
+                      child: Container(
+                        alignment: Alignment.center,
+                        width: 50,
+                        height: 50,
+                      )),
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(width: 75.0,height: 75.0,
+                    padding: const EdgeInsets.all(2.0),
+                    child: buildButton(num: 0),
+                  ),
+                  Padding(
+                      padding: const EdgeInsets.all(20.0),
                       child: Icon(
-                        Icons.backspace,         // รูปไอคอน
-                        size: 30.0,           // ขนาดไอคอน
-                        color: Colors.black,   // สีไอคอน
-                      ),),
-                  )
+                        Icons.backspace, // รูปไอคอน
+                        size: 20.0, // ขนาดไอคอน
+                        color: Colors.blueGrey, // สีไอคอน
+                      )),
                 ],
               ),
-
-              Padding(padding: const EdgeInsets.all(16.0),
-                child: TextButton(
-                    child: Text('forgot password'),
-                    onPressed: (
-
-                        ){
-
-                    }
-                ),
-              )
+              Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: TextButton(
+                    child: Text("ลืมรหัสผ่าน",
+                        style:
+                        TextStyle(fontSize: 14.0, color: Colors.white10)),
+                    onPressed: () {},
+                  )),
             ],
           ),
         ),
       ),
     );
   }
+
   Widget buildButton({int? num}) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: InkWell(
-        onTap: (){},
-        child: Container(
-            width: 75.0,
-            height: 75.0,
-            //color: Colors.white, // ห้ามกำหนด color ตรงนี้ ถ้าหากกำหนดใน BoxDecoration แล้ว
-            decoration: BoxDecoration(
-                color: Colors.white,
-                shape: BoxShape.circle,
-                border: Border.all(color: Colors.deepOrange, width: 4.0),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.2), // สีเงา
-                    offset: Offset(2, 4), // ทิศทางของเงาในแนวนอนและแนวตั้ง ตามลำดับ
-                    blurRadius: 4.0,
-                    spreadRadius: 2.0,
-                  )
-                ]
+      padding: const EdgeInsets.all(10.0),
+      child: Container(
+        width: 60.0,
+        height: 60.0,
+        decoration: BoxDecoration(
+            color: Colors.white,
+            shape: BoxShape.circle,
+            border: Border.all(color: Colors.black12, width: 1.0),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.2), // สีเงา
+                offset: Offset(4, 4), // ทิศทางของเงาในแนวนอนและแนวตั้ง ตามลำดับ
+                blurRadius: 4.0,
+                spreadRadius: 2.0,
+              )
+            ]),
+        child: OutlinedButton(
+            style: OutlinedButton.styleFrom(
+              shape: CircleBorder(),
             ),
-            child: Center(
-              child: Text('$num',style: TextStyle(
-                  fontWeight: FontWeight.bold,fontSize: 20.0, color: Colors.black),),
-            )
-
-        ),
+            onPressed: () {
+              null;
+            },
+            child: Center(child: Text('$num'))),
       ),
     );
   }
